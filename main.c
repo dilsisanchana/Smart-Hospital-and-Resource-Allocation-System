@@ -31,12 +31,15 @@ const int wardBedCapacities[numOfWards]={20,10,10,5};
 int bedOccupancy[numOfWards][maxBeds];
 
 void initializeBeds();
+void displayBeds();
 
 int main()
 {
     initializeBeds();
 
     printf("Smart Hospital & Resource Allocation System\n");
+
+    displayBeds();
     return 0;
 }
 
@@ -51,3 +54,19 @@ void initializeBeds()
         }
     }
 }
+
+void displayBeds()
+{
+    int i,j;
+    for (i=0; i<numOfWards;i++)
+    {
+        printf("\n%s: ",wardNames[i]);
+        for (j=0; j<wardBedCapacities[i]; j++)
+        {
+            printf("%d ",bedOccupancy[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+
