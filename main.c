@@ -26,9 +26,28 @@ const double dailyBedRates[numOfWards]={3000.00,6000.00,12000.00,
 
 const int wardBedCapacities[numOfWards]={20,10,10,5};
 
+//Bed Occupancy Matrix
+//0 = Available , 1 = Occupied
+int bedOccupancy[numOfWards][maxBeds];
+
+void initializeBeds();
 
 int main()
 {
-    printf("Smart Hospital & Allocation System\n");
+    initializeBeds();
+
+    printf("Smart Hospital & Resource Allocation System\n");
     return 0;
+}
+
+void initializeBeds()
+{
+    int i,j;
+    for (i=0; i<numOfWards; i++)
+    {
+        for (j=0; j<maxBeds; j++)
+        {
+            bedOccupancy[i][j]=0;
+        }
+    }
 }
