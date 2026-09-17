@@ -30,12 +30,25 @@ const int wardBedCapacities[numOfWards]={20,10,10,5};
 //0 = Available , 1 = Occupied
 int bedOccupancy[numOfWards][maxBeds];
 
+//patient data
+char patientNames[maxPatients][50];
+int patientAges[maxPatients];
+int patientTriageLevels[maxPatients];
+int patientSpecialties[maxPatients];
+int patientAdmitted[maxPatients];
+int patientWards[maxPatients];
+int patientDaysAdmitted[maxPatients];
+
+int patientCount = 0;
+
 void initializeBeds();
 void displayBeds();
+void registerPatient();
 
 int main()
 {
     initializeBeds();
+    registerPatient();
 
     printf("Smart Hospital & Resource Allocation System\n");
 
@@ -69,4 +82,34 @@ void displayBeds()
     }
 }
 
+void registerPatient()
+{
+   printf("\nEnter patient name: ");
+   scanf(" %[^\n]",patientNames[patientCount]);
 
+   printf("\nEnter patient age: ");
+   scanf("%d",&patientAges[patientCount]);
+
+   printf("\nEnter patient triage Level (1 = Normal, 2 = Urgent, 3 = Critical): ");
+   scanf("%d",&patientTriageLevels[patientCount]);
+
+   printf("\nEnter specialty ID(1 to 4): ");
+   scanf("%d",&patientSpecialties[patientCount]);
+
+   printf("\nIs the patient admitted to ward?(1 = Yes, 0 = No): ");
+   scanf("%d",&patientAdmitted[patientCount]);
+
+   if (patientAdmitted[patientCount]==1)
+   {
+       printf("\nEnter ward  ID(1 to 4): ");
+       scanf("%d",&patientWards[patientCount]);
+
+       printf("\nEnter days admitted: ");
+       scanf("%d",&patientDaysAdmitted[patientCount]);
+   }
+   else
+   {
+       patientDaysAdmitted[patientCount]=0;
+   }
+   patientCount++;
+}
