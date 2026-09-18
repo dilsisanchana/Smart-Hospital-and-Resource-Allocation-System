@@ -91,23 +91,64 @@ void registerPatient()
 
    printf("\nEnter patient age: ");
    scanf("%d",&patientAges[patientCount]);
+   do
+   {
+     printf("\nEnter patient triage Level (1 = Normal, 2 = Urgent, 3 = Critical): ");
+     scanf("%d",&patientTriageLevels[patientCount]);
 
-   printf("\nEnter patient triage Level (1 = Normal, 2 = Urgent, 3 = Critical): ");
-   scanf("%d",&patientTriageLevels[patientCount]);
+     if (patientTriageLevels[patientCount]<1 || patientTriageLevels[patientCount]>3)
+     {
+        printf("Invalid triage level.Please enter 1, 2, or 3.\n");
+     }
+   }while(patientTriageLevels[patientCount]<1 || patientTriageLevels[patientCount]>3);
 
-   printf("\nEnter specialty ID(1 to 4): ");
-   scanf("%d",&patientSpecialties[patientCount]);
+   do
+   {
+       printf("\nEnter specialty ID(1 to 4): ");
+       scanf("%d",&patientSpecialties[patientCount]);
 
-   printf("\nIs the patient admitted to ward?(1 = Yes, 0 = No): ");
-   scanf("%d",&patientAdmitted[patientCount]);
+       if (patientSpecialties[patientCount]<1 || patientSpecialties[patientCount]>4)
+       {
+           printf("Invalid specialty ID .Please enter 1,2,3,or 4.\n");
+       }
+   }while (patientSpecialties[patientCount]<1 || patientSpecialties[patientCount]>4);
+
+   do
+   {
+
+       printf("\nIs the patient admitted to ward?(1 = Yes, 0 = No): ");
+       scanf("%d",&patientAdmitted[patientCount]);
+
+       if (patientAdmitted[patientCount] != 0 && patientAdmitted[patientCount]!=1)
+       {
+           printf("Invalid choice.Please enter 1 or 0.\n");
+       }
+   }while (patientAdmitted[patientCount] != 0 && patientAdmitted[patientCount]!=1);
 
    if (patientAdmitted[patientCount]==1)
    {
-       printf("\nEnter ward  ID(1 to 4): ");
-       scanf("%d",&patientWards[patientCount]);
+       do
+       {
+           printf("\nEnter ward  ID(1 to 4): ");
+           scanf("%d",&patientWards[patientCount]);
 
-       printf("\nEnter days admitted: ");
-       scanf("%d",&patientDaysAdmitted[patientCount]);
+           if (patientWards[patientCount]<1 || patientWards[patientCount]>4)
+           {
+               printf("Invalid ward ID.Please enter 1,2,3, or 4.\n");
+           }
+       }while (patientWards[patientCount]<1 || patientWards[patientCount]>4);
+
+       do
+       {
+           printf("\nEnter days admitted: ");
+           scanf("%d",&patientDaysAdmitted[patientCount]);
+
+           if (patientDaysAdmitted[patientCount]<1)
+           {
+               printf("Invalid number of days.Please enter at least 1 day.\n");
+           }
+
+       }while(patientDaysAdmitted[patientCount]<1);
 
        allocateBed(patientCount);
    }
