@@ -38,19 +38,21 @@ int patientSpecialties[maxPatients];
 int patientAdmitted[maxPatients];
 int patientWards[maxPatients];
 int patientDaysAdmitted[maxPatients];
+int patientBedNumber[maxPatients];
 
 int patientCount = 0;
 
 void initializeBeds();
 void displayBeds();
 void registerPatient();
+void allocateBed(int patientIndex);
 
 int main()
 {
     initializeBeds();
     registerPatient();
 
-    printf("Smart Hospital & Resource Allocation System\n");
+    printf("\nSmart Hospital & Resource Allocation System\n");
 
     displayBeds();
     return 0;
@@ -106,10 +108,33 @@ void registerPatient()
 
        printf("\nEnter days admitted: ");
        scanf("%d",&patientDaysAdmitted[patientCount]);
+
+       allocateBed(patientCount);
    }
    else
    {
        patientDaysAdmitted[patientCount]=0;
    }
    patientCount++;
+}
+
+void allocateBed(int patientIndex)
+{
+    int wardIndex;
+    int j;
+
+    wardIndex =patientWards[patientIndex]-1;
+    for (j=0; j<wardBedCapacities[wardIndex]; j++)
+    {
+        if (bedOccupancy[wardIndex][j]== 0)
+        {
+            bedOccupancy[wardIndex][j]=1;
+            patientBedNumber[patientIndex] = j+1;
+
+            printf("\nBed allocated: %d\n",patientBedNumber[patientIndex]);
+            return;
+
+        }
+    }
+    printf("\nNo available bed in %s",wardNames[wardIndex]);
 }
