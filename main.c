@@ -62,6 +62,7 @@ void calculateGrossBill(int patientIndex);
 void calculateFinalBill(int patientIndex);
 void sortPatientsByOrder();
 void displayPriorityOrder();
+void displayPatientBill(int patientIndex);
 
 int main()
 {
@@ -191,6 +192,7 @@ void registerPatient()
 
    calculateGrossBill(patientCount);
    calculateFinalBill(patientCount);
+   displayPatientBill(patientCount);
    patientCount++;
 }
 
@@ -327,5 +329,22 @@ void displayPriorityOrder()
                patientTriageLevels[patientIndex]);
     }
 }
+
+void displayPatientBill(int patientIndex)
+{
+    int specialtyIndex;
+    specialtyIndex= patientSpecialties[patientIndex]-1;
+
+    printf("\n========== Patient Billing Summary ==========\n");
+    printf("Patient Name: %s\n",patientNames[patientIndex]);
+    printf("Consultation Fee: %.2f LKR\n",specialtyConsultationFees[specialtyIndex]);
+    printf("Emergency Surcharge: %.2f LKR\n",patientSurcharges[patientIndex]);
+    printf("Ward Cost: %.2f LKR\n",patientWardCosts[patientIndex]);
+    printf("Gross Bill: %.2f LKR\n",patientGrossBills[patientIndex]);
+    printf("Age Discount: %.2f LKR\n",patientDiscounts[patientIndex]);
+    printf("Final Bill: %.2f LKR\n",patientFinalBill[patientIndex]);
+    printf("=============================================\n");
+}
+
 
 
