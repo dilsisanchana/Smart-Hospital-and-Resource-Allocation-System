@@ -39,6 +39,9 @@ int patientAdmitted[maxPatients];
 int patientWards[maxPatients];
 int patientDaysAdmitted[maxPatients];
 int patientBedNumber[maxPatients];
+int patientWaitTimes[maxPatients];
+
+int specialtyQueueCount[numOfSpecialties]={0,0,0,0};
 
 int patientCount = 0;
 
@@ -46,6 +49,7 @@ void initializeBeds();
 void displayBeds();
 void registerPatient();
 void allocateBed(int patientIndex);
+void calculateWaitTime(int patientIndex);
 
 int main()
 {
@@ -113,6 +117,7 @@ void registerPatient()
        }
    }while (patientSpecialties[patientCount]<1 || patientSpecialties[patientCount]>4);
 
+   calculateWaitTime(patientCount);
    do
    {
 
@@ -178,4 +183,15 @@ void allocateBed(int patientIndex)
         }
     }
     printf("\nNo available bed in %s",wardNames[wardIndex]);
+}
+
+void calculateWaitTime(int patientIndex)
+{
+    int specialtyIndex;
+    specialtyIndex = patientSpecialties[patientIndex]-1;
+    patientWaitTimes[patientIndex]=specialtyQueueCount[specialtyIndex]*consultationTime[specialtyIndex];
+
+    printf("\nEstimated waiting time: %d minutes\n",patientWaitTimes[patientIndex]);
+
+    specialtyQueueCount[specialtyIndex]++;
 }
