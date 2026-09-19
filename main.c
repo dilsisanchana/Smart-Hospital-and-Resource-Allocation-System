@@ -42,6 +42,7 @@ int patientBedNumber[maxPatients];
 int patientWaitTimes[maxPatients];
 
 int specialtyQueueCount[numOfSpecialties]={0,0,0,0};
+double patientSurcharges[maxPatients];
 
 int patientCount = 0;
 
@@ -50,6 +51,7 @@ void displayBeds();
 void registerPatient();
 void allocateBed(int patientIndex);
 void calculateWaitTime(int patientIndex);
+void calculateSurcharge(int patientIndex);
 
 int main()
 {
@@ -118,6 +120,8 @@ void registerPatient()
    }while (patientSpecialties[patientCount]<1 || patientSpecialties[patientCount]>4);
 
    calculateWaitTime(patientCount);
+   calculateSurcharge(patientCount);
+
    do
    {
 
@@ -194,4 +198,26 @@ void calculateWaitTime(int patientIndex)
     printf("\nEstimated waiting time: %d minutes\n",patientWaitTimes[patientIndex]);
 
     specialtyQueueCount[specialtyIndex]++;
+}
+
+void calculateSurcharge(int patientIndex)
+{
+    int specialtyIndex;
+    specialtyIndex=patientSpecialties[patientIndex]-1;
+
+    if (patientTriageLevels[patientIndex]==1)
+    {
+        patientSurcharges[patientIndex]= 0;
+    }
+    else if (patientTriageLevels[patientIndex]==2)
+    {
+        patientSurcharges[patientIndex]=specialtyConsultationFees[specialtyIndex]*0.20;
+
+    }
+    else
+    {
+        patientSurcharges[patientIndex]=specialtyConsultationFees[specialtyIndex]*0.50;
+    }
+
+    printf("\nEmergency surcharge: %.2f LKR\n",patientSurcharges[patientIndex]);
 }
