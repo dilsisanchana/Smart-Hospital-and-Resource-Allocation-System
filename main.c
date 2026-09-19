@@ -47,6 +47,7 @@ double patientWardCosts[maxPatients];
 double patientGrossBills[maxPatients];
 double patientDiscounts[maxPatients];
 double patientFinalBill[maxPatients];
+int patientOrder[maxPatients];
 
 int patientCount = 0;
 
@@ -59,6 +60,8 @@ void calculateSurcharge(int patientIndex);
 void calculateWardCost(int patientIndex);
 void calculateGrossBill(int patientIndex);
 void calculateFinalBill(int patientIndex);
+void sortPatientsByOrder();
+void displayPriorityOrder();
 
 int main()
 {
@@ -75,7 +78,10 @@ int main()
 
     printf("\nSmart Hospital & Resource Allocation System\n");
 
+    sortPatientsByOrder();
+    displayPriorityOrder();
     displayBeds();
+
     return 0;
 }
 
@@ -275,6 +281,51 @@ void calculateFinalBill(int patientIndex)
                                     patientDiscounts[patientIndex];
 
     printf("\nFinal Bill: %.2f LKR\n",patientFinalBill[patientIndex]);
+}
+
+void sortPatientsByOrder()
+{
+    int i,j;
+    int highestPriority;
+    int temp;
+
+    for (i=0; i< patientCount; i++)
+    {
+        patientOrder[i]=i;
+    }
+    for (i=0; i< patientCount - 1;i++)
+    {
+        highestPriority = i;
+
+        for (j=i+1; j<patientCount; j++)
+        {
+            if (patientTriageLevels[patientOrder[j]] >
+                patientTriageLevels[patientOrder[highestPriority]])
+            {
+                highestPriority = j;
+            }
+        }
+
+        temp= patientOrder[i];
+        patientOrder[i] = patientOrder[highestPriority];
+        patientOrder[highestPriority] = temp;
+    }
+}
+
+void displayPriorityOrder()
+{
+    int i;
+    int patientIndex;
+
+    printf("\nEmergency Priority Order:\n");
+
+    for (i=0; i< patientCount; i++)
+    {
+        patientIndex = patientOrder[i];
+
+        printf("%d. %s - Triage level %d\n",i+1,patientNames[patientIndex],
+               patientTriageLevels[patientIndex]);
+    }
 }
 
 
