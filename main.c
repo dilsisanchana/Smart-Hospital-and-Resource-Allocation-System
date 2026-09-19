@@ -45,6 +45,8 @@ int specialtyQueueCount[numOfSpecialties]={0,0,0,0};
 double patientSurcharges[maxPatients];
 double patientWardCosts[maxPatients];
 double patientGrossBills[maxPatients];
+double patientDiscounts[maxPatients];
+double patientFinalBill[maxPatients];
 
 int patientCount = 0;
 
@@ -56,6 +58,7 @@ void calculateWaitTime(int patientIndex);
 void calculateSurcharge(int patientIndex);
 void calculateWardCost(int patientIndex);
 void calculateGrossBill(int patientIndex);
+void calculateFinalBill(int patientIndex);
 
 int main()
 {
@@ -173,6 +176,7 @@ void registerPatient()
    }
 
    calculateGrossBill(patientCount);
+   calculateFinalBill(patientCount);
    patientCount++;
 }
 
@@ -248,6 +252,21 @@ void calculateGrossBill(int patientIndex)
                                     +patientWardCosts[patientIndex];
 
     printf("\nGross bill: %.2f LKR\n",patientGrossBills[patientIndex]);
+}
+
+void calculateFinalBill(int patientIndex)
+{
+    if (patientAges[patientIndex]<5 || patientAges[patientIndex]>65)
+    {
+        patientDiscounts[patientIndex]=patientGrossBills[patientIndex]*0.15;
+    }
+    else
+        patientDiscounts[patientIndex]=0.00;
+
+    patientFinalBill[patientIndex]=patientGrossBills[patientIndex]-
+                                    patientDiscounts[patientIndex];
+
+    printf("\nFinal Bill: %.2f LKR\n",patientFinalBill[patientIndex]);
 }
 
 
