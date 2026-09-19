@@ -62,8 +62,16 @@ void calculateFinalBill(int patientIndex);
 
 int main()
 {
+    int choice;
+
     initializeBeds();
-    registerPatient();
+    do
+    {
+        registerPatient();
+        printf("\nDo you want to register another patient? (1= yes,0= No): ");
+        scanf("%d",&choice);
+
+    }while(choice == 1);
 
     printf("\nSmart Hospital & Resource Allocation System\n");
 
