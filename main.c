@@ -43,6 +43,7 @@ int patientWaitTimes[maxPatients];
 
 int specialtyQueueCount[numOfSpecialties]={0,0,0,0};
 double patientSurcharges[maxPatients];
+double patientWardCosts[maxPatients];
 
 int patientCount = 0;
 
@@ -52,6 +53,7 @@ void registerPatient();
 void allocateBed(int patientIndex);
 void calculateWaitTime(int patientIndex);
 void calculateSurcharge(int patientIndex);
+void calculateWardCost(int patientIndex);
 
 int main()
 {
@@ -159,6 +161,7 @@ void registerPatient()
 
        }while(patientDaysAdmitted[patientCount]<1);
 
+       calculateWardCost(patientCount);
        allocateBed(patientCount);
    }
    else
@@ -221,3 +224,13 @@ void calculateSurcharge(int patientIndex)
 
     printf("\nEmergency surcharge: %.2f LKR\n",patientSurcharges[patientIndex]);
 }
+
+void calculateWardCost(int patientIndex)
+{
+    int wardIndex;
+    wardIndex=patientWards[patientIndex]-1;
+    patientWardCosts[patientIndex]=dailyBedRates[wardIndex]*patientDaysAdmitted[patientIndex];
+    printf("\nWard cost: %.2f LKR\n",patientWardCosts[patientIndex]);
+}
+
+
