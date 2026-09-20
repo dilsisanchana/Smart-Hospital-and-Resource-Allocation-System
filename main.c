@@ -63,6 +63,7 @@ void calculateFinalBill(int patientIndex);
 void sortPatientsByOrder();
 void displayPriorityOrder();
 void displayPatientBill(int patientIndex);
+void displayUrgencyReport();
 
 int main()
 {
@@ -81,6 +82,7 @@ int main()
 
     sortPatientsByOrder();
     displayPriorityOrder();
+    displayUrgencyReport();
     displayBeds();
 
     return 0;
@@ -346,5 +348,35 @@ void displayPatientBill(int patientIndex)
     printf("=============================================\n");
 }
 
+void displayUrgencyReport()
+{
+    int i;
+    int normalCount=0;
+    int urgentCount=0;
+    int criticalCount=0;
+
+    for (i=0; i< patientCount; i++)
+    {
+        if (patientTriageLevels[i] ==1)
+        {
+            normalCount++;
+        }
+        else if (patientTriageLevels[i]== 2)
+        {
+            urgentCount++;
+        }
+        else if (patientTriageLevels[i]==3)
+        {
+            criticalCount++;
+        }
+    }
+
+    printf("\n========== Patient Urgency Report ==========\n");
+    printf("Normal Patients: %d\n",normalCount);
+    printf("Urgent patients: %d\n",urgentCount);
+    printf("Critical patients: %d\n",criticalCount);
+    printf("===========================================\n");
+
+}
 
 
