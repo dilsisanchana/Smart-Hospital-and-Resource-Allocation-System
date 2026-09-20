@@ -67,6 +67,7 @@ void displayUrgencyReport();
 void displayFinancialReport();
 void displayOccupancyReport();
 void displayHighestPayingPatient();
+void displayMenu();
 
 int main()
 {
@@ -75,21 +76,48 @@ int main()
     initializeBeds();
     do
     {
-        registerPatient();
-        printf("\nDo you want to register another patient? (1= yes,0= No): ");
-        scanf("%d",&choice);
+       displayMenu();
+       scanf("%d",&choice);
 
-    }while(choice == 1);
+       if (choice == 1)
+       {
+           registerPatient();
+       }
+       else if (choice==2)
+       {
+           sortPatientsByOrder();
+           displayPriorityOrder();
+       }
+       else if (choice==3)
+       {
+           displayUrgencyReport();
+       }
+       else if (choice==4)
+       {
+           displayFinancialReport();
+       }
+       else if (choice==5)
+       {
+           displayOccupancyReport();
+       }
+       else if (choice==6)
+       {
+           displayHighestPayingPatient();
+       }
+       else if (choice==7)
+       {
+           displayBeds();
+       }
+       else if (choice==0)
+       {
+           printf("\nExiting Smart Hospital System...\n");
+       }
+       else
+       {
+           printf("\nInvalid choise. Please select 0 to 7.\n");
+       }
 
-    printf("\nSmart Hospital & Resource Allocation System\n");
-
-    sortPatientsByOrder();
-    displayPriorityOrder();
-    displayUrgencyReport();
-    displayFinancialReport();
-    displayOccupancyReport();
-    displayHighestPayingPatient();
-    displayBeds();
+    }while(choice != 0);
 
     return 0;
 }
@@ -449,6 +477,21 @@ void displayHighestPayingPatient()
     printf("Patient Name: %s\n",patientNames[highestPatient]);
     printf("Final Bill: %.2f LKR\n",patientFinalBill[highestPatient]);
     printf("===========================================\n");
+}
+
+void displayMenu()
+{
+    printf("\n========== Smart Hospital System ==========\n");
+    printf("1. Register Patient\n");
+    printf("2. Display Priority Order\n");
+    printf("3. Display Urgency Report\n");
+    printf("4. Display Financial Report\n");
+    printf("5. Display Ward Occupancy\n");
+    printf("6. Display Highest-Paying Patient\n");
+    printf("7. Display Bed Status\n");
+    printf("0. Exit\n");
+    printf("=========================================\n");
+    printf("Enter your choice: ");
 }
 
 
