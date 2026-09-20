@@ -65,6 +65,7 @@ void displayPriorityOrder();
 void displayPatientBill(int patientIndex);
 void displayUrgencyReport();
 void displayFinancialReport();
+void displayOccupancyReport();
 
 int main()
 {
@@ -85,6 +86,7 @@ int main()
     displayPriorityOrder();
     displayUrgencyReport();
     displayFinancialReport();
+    displayOccupancyReport();
     displayBeds();
 
     return 0;
@@ -398,6 +400,33 @@ void displayFinancialReport()
     printf("Total Revenue: %.2f LKR\n",totalRevenue);
     printf("Total Discount: %.2f LKR\n",totalDiscount);
     printf("======================================\n");
+}
+
+void displayOccupancyReport()
+{
+    int i,j;
+    int occupiedBeds;
+    double occupancyPercentage;
+
+    printf("\n========== Ward Occupancy Report ==========\n");
+
+    for (i=0; i< numOfWards; i++)
+    {
+        occupiedBeds = 0;
+
+        for (j=0; j< wardBedCapacities[i]; j++)
+        {
+            if (bedOccupancy[i][j]== 1)
+            {
+                occupiedBeds++;
+            }
+        }
+        occupancyPercentage = (double)occupiedBeds/wardBedCapacities[i]*100;
+        printf("%s: %d/%d beds occupied (%.2f%%)\n",
+               wardNames[i],occupiedBeds,wardBedCapacities[i],occupancyPercentage);
+    }
+    printf("==========================================\n");
+
 }
 
 
