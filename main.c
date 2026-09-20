@@ -64,6 +64,7 @@ void sortPatientsByOrder();
 void displayPriorityOrder();
 void displayPatientBill(int patientIndex);
 void displayUrgencyReport();
+void displayFinancialReport();
 
 int main()
 {
@@ -83,6 +84,7 @@ int main()
     sortPatientsByOrder();
     displayPriorityOrder();
     displayUrgencyReport();
+    displayFinancialReport();
     displayBeds();
 
     return 0;
@@ -377,6 +379,25 @@ void displayUrgencyReport()
     printf("Critical patients: %d\n",criticalCount);
     printf("===========================================\n");
 
+}
+
+void displayFinancialReport()
+{
+    int i;
+    double totalRevenue=0;
+    double totalDiscount=0;
+
+    for (i=0; i<patientCount; i++)
+    {
+        totalRevenue +=patientFinalBill[i];
+        totalDiscount +=patientDiscounts[i];
+
+    }
+
+    printf("\n========== Financial Report ==========\n");
+    printf("Total Revenue: %.2f LKR\n",totalRevenue);
+    printf("Total Discount: %.2f LKR\n",totalDiscount);
+    printf("======================================\n");
 }
 
 
