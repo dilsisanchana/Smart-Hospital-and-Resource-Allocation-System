@@ -66,6 +66,7 @@ void displayPatientBill(int patientIndex);
 void displayUrgencyReport();
 void displayFinancialReport();
 void displayOccupancyReport();
+void displayHighestPayingPatient();
 
 int main()
 {
@@ -87,6 +88,7 @@ int main()
     displayUrgencyReport();
     displayFinancialReport();
     displayOccupancyReport();
+    displayHighestPayingPatient();
     displayBeds();
 
     return 0;
@@ -427,6 +429,26 @@ void displayOccupancyReport()
     }
     printf("==========================================\n");
 
+}
+
+void displayHighestPayingPatient()
+{
+    int i;
+    int highestPatient;
+
+    highestPatient = 0;
+
+    for (i=0; i<patientCount; i++)
+    {
+        if (patientFinalBill[i]> patientFinalBill[highestPatient])
+        {
+            highestPatient = i;
+        }
+    }
+    printf("\n========== Highest-Paying Patient ==========\n");
+    printf("Patient Name: %s\n",patientNames[highestPatient]);
+    printf("Final Bill: %.2f LKR\n",patientFinalBill[highestPatient]);
+    printf("===========================================\n");
 }
 
 
