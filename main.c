@@ -81,7 +81,14 @@ int main()
 
        if (choice == 1)
        {
-           registerPatient();
+           if (patientCount < maxPatients)
+           {
+               registerPatient();
+           }
+           else
+           {
+               printf("\nMaximum patient limit reached.\n");
+           }
        }
        else if (choice==2)
        {
@@ -114,7 +121,7 @@ int main()
        }
        else
        {
-           printf("\nInvalid choise. Please select 0 to 7.\n");
+           printf("\nInvalid choice. Please select 0 to 7.\n");
        }
 
     }while(choice != 0);
@@ -463,6 +470,12 @@ void displayHighestPayingPatient()
 {
     int i;
     int highestPatient;
+
+    if (patientCount==0)
+    {
+        printf("\nNo patients registered yet.\n");
+        return;
+    }
 
     highestPatient = 0;
 
